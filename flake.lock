@@ -1,0 +1,221 @@
+{
+  "nodes": {
+    "bun": {
+      "locked": {
+        "path": "./bun",
+        "type": "path"
+      },
+      "original": {
+        "path": "./bun",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "core": {
+      "locked": {
+        "path": "./core",
+        "type": "path"
+      },
+      "original": {
+        "path": "./core",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "darwin": {
+      "locked": {
+        "path": "./darwin",
+        "type": "path"
+      },
+      "original": {
+        "path": "./darwin",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "go": {
+      "locked": {
+        "path": "./go",
+        "type": "path"
+      },
+      "original": {
+        "path": "./go",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768707181,
+        "narHash": "sha256-GdwFfnwdUgABFpc4sAmX7GYx8eQs6cEjOPo6nBJ0YaI=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "83bcb17377f0242376a327e742e9404e9a528647",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nodejs": {
+      "locked": {
+        "path": "./nodejs",
+        "type": "path"
+      },
+      "original": {
+        "path": "./nodejs",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "nvim": {
+      "locked": {
+        "path": "./nvim",
+        "type": "path"
+      },
+      "original": {
+        "path": "./nvim",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "opencode": {
+      "locked": {
+        "path": "./opencode",
+        "type": "path"
+      },
+      "original": {
+        "path": "./opencode",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "python": {
+      "locked": {
+        "path": "./python",
+        "type": "path"
+      },
+      "original": {
+        "path": "./python",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "root": {
+      "inputs": {
+        "bun": "bun",
+        "core": "core",
+        "darwin": "darwin",
+        "go": "go",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "nodejs": "nodejs",
+        "nvim": "nvim",
+        "opencode": "opencode",
+        "python": "python",
+        "rust": "rust",
+        "wsl": "wsl",
+        "zsh": "zsh"
+      }
+    },
+    "rust": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "path": "./rust",
+        "type": "path"
+      },
+      "original": {
+        "path": "./rust",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "rust",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768704795,
+        "narHash": "sha256-Y33TAp2BHEcuspYvcmBXXD0qdvjftv73PwyKTDOjoSY=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "4b7472a78857ac789fb26616040f55cfcbd36c6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "wsl": {
+      "locked": {
+        "path": "./wsl",
+        "type": "path"
+      },
+      "original": {
+        "path": "./wsl",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "zsh": {
+      "locked": {
+        "path": "./zsh",
+        "type": "path"
+      },
+      "original": {
+        "path": "./zsh",
+        "type": "path"
+      },
+      "parent": []
+    }
+  },
+  "root": "root",
+  "version": 7
+}
