@@ -11,6 +11,28 @@
       },
       "parent": []
     },
+    "cloud": {
+      "locked": {
+        "path": "./cloud",
+        "type": "path"
+      },
+      "original": {
+        "path": "./cloud",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "container": {
+      "locked": {
+        "path": "./container",
+        "type": "path"
+      },
+      "original": {
+        "path": "./container",
+        "type": "path"
+      },
+      "parent": []
+    },
     "core": {
       "locked": {
         "path": "./core",
@@ -29,6 +51,17 @@
       },
       "original": {
         "path": "./darwin",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "dev": {
+      "locked": {
+        "path": "./dev",
+        "type": "path"
+      },
+      "original": {
+        "path": "./dev",
         "type": "path"
       },
       "parent": []
@@ -63,6 +96,17 @@
         "repo": "home-manager",
         "type": "github"
       }
+    },
+    "kubernetes": {
+      "locked": {
+        "path": "./kubernetes",
+        "type": "path"
+      },
+      "original": {
+        "path": "./kubernetes",
+        "type": "path"
+      },
+      "parent": []
     },
     "nixpkgs": {
       "locked": {
@@ -143,16 +187,21 @@
     "root": {
       "inputs": {
         "bun": "bun",
+        "cloud": "cloud",
+        "container": "container",
         "core": "core",
         "darwin": "darwin",
+        "dev": "dev",
         "go": "go",
         "home-manager": "home-manager",
+        "kubernetes": "kubernetes",
         "nixpkgs": "nixpkgs",
         "nodejs": "nodejs",
         "nvim": "nvim",
         "opencode": "opencode",
         "python": "python",
         "rust": "rust",
+        "utility": "utility",
         "wsl": "wsl",
         "zsh": "zsh"
       }
@@ -192,6 +241,17 @@
         "repo": "rust-overlay",
         "type": "github"
       }
+    },
+    "utility": {
+      "locked": {
+        "path": "./utility",
+        "type": "path"
+      },
+      "original": {
+        "path": "./utility",
+        "type": "path"
+      },
+      "parent": []
     },
     "wsl": {
       "locked": {

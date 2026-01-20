@@ -7,7 +7,14 @@
         { pkgs, ... }:
         {
           nixpkgs.config.allowUnfree = true;
-          home.packages = [ pkgs.colima pkgs.google-chrome pkgs.slack pkgs.wezterm pkgs.nerd-fonts.hasklug ];
+          home.packages = with pkgs; [
+            coreutils
+            findutils
+            gnused
+            gnugrep
+            gnutar
+            colima
+          ];
         }
       );
     };

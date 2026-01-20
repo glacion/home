@@ -1,4 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 {
   programs = {
     bat.enable = true;
@@ -28,9 +31,19 @@
       signing.signer = "ssh";
       signing.key = "~/.ssh/id_ed25519";
     };
+    gh = {
+      enable = true;
+      settings = {
+        git_protocol = "ssh";
+      };
+    };
     nh = {
       enable = true;
-      flake = "/home/glacion/.config/home-manager";
+      flake = if isDarwin then "/Users/glacion/.config/home-manager" else "/home/glacion/.config/home-manager";
+    };
+    mise = {
+      enable = true;
+      enableZshIntegration = true;
     };
     ssh = {
       enable = true;

@@ -2,10 +2,15 @@
   description = "Home Manager configuration for Citadel and Sentinel";
   inputs = {
     bun.url = "path:./bun";
+    cloud.url = "path:./cloud";
+    container.url = "path:./container";
     core.url = "path:./core";
+    dev.url = "path:./dev";
     go.url = "path:./go";
+    kubernetes.url = "path:./kubernetes";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nodejs.url = "path:./nodejs";
+    utility.url = "path:./utility";
     nvim.url = "path:./nvim";
     opencode.url = "path:./opencode";
     python.url = "path:./python";
@@ -19,12 +24,16 @@
     };
   };
 
-  outputs =
+    outputs =
     {
       bun,
+      cloud,
+      container,
       core,
+      dev,
       go,
       home-manager,
+      kubernetes,
       nixpkgs,
       nodejs,
       nvim,
@@ -32,6 +41,7 @@
       python,
       rust,
       darwin,
+      utility,
       wsl,
       zsh,
       ...
@@ -39,13 +49,18 @@
     let
       default = [
         bun.default
+        cloud.default
+        container.default
         core.default
+        dev.default
         go.default
+        kubernetes.default
         nodejs.default
         nvim.default
         opencode.default
         python.default
         rust.default
+        utility.default
         zsh.default
       ];
     in
