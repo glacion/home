@@ -18,6 +18,11 @@
     darwin.url = "path:./darwin";
     wsl.url = "path:./wsl";
     zsh.url = "path:./zsh";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-darwin/nix-darwin/master";
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
@@ -25,7 +30,8 @@
   };
 
     outputs =
-    {
+    inputs@{
+      self,
       bun,
       cloud,
       container,
@@ -41,6 +47,8 @@
       python,
       rust,
       darwin,
+      nix-darwin,
+      nix-homebrew,
       utility,
       wsl,
       zsh,
@@ -74,6 +82,24 @@
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
           modules = default ++ [ darwin.default ];
         };
+      };
+
+      darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./hosts/sentinel/configuration.nix
+          ./hosts/sentinel/homebrew.nix
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            home-manager = {
+              backupFileExtension = "bak";
+              users.glacion = {
+                imports = default ++ [ darwin.default ];
+              };
+            };
+          }
+        ];
+        specialArgs = { inherit self inputs; };
       };
     };
 }

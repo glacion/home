@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-let
-  isDarwin = pkgs.stdenv.isDarwin;
-in
+{ config, ... }:
 {
   programs = {
     bat.enable = true;
@@ -23,13 +20,18 @@ in
     git = {
       enable = true;
       settings = {
+        pull = {
+          rebase = true;
+        };
         user = {
           name = "Can Güvendiren";
           email = "can@glacion.com";
         };
       };
-      signing.signer = "ssh";
-      signing.key = "~/.ssh/id_ed25519";
+      signing = {
+        signer = "ssh";
+        key = "~/.ssh/id_ed25519";
+      };
     };
     gh = {
       enable = true;
@@ -39,7 +41,7 @@ in
     };
     nh = {
       enable = true;
-      flake = if isDarwin then "/Users/glacion/.config/home-manager" else "/home/glacion/.config/home-manager";
+      flake = "${config.home.homeDirectory}/.config/home";
     };
     mise = {
       enable = true;
