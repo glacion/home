@@ -17,83 +17,6 @@
         "type": "github"
       }
     },
-    "bun": {
-      "locked": {
-        "path": "./bun",
-        "type": "path"
-      },
-      "original": {
-        "path": "./bun",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "cloud": {
-      "locked": {
-        "path": "./cloud",
-        "type": "path"
-      },
-      "original": {
-        "path": "./cloud",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "container": {
-      "locked": {
-        "path": "./container",
-        "type": "path"
-      },
-      "original": {
-        "path": "./container",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "core": {
-      "locked": {
-        "path": "./core",
-        "type": "path"
-      },
-      "original": {
-        "path": "./core",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "darwin": {
-      "locked": {
-        "path": "./darwin",
-        "type": "path"
-      },
-      "original": {
-        "path": "./darwin",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "dev": {
-      "locked": {
-        "path": "./dev",
-        "type": "path"
-      },
-      "original": {
-        "path": "./dev",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "go": {
-      "locked": {
-        "path": "./go",
-        "type": "path"
-      },
-      "original": {
-        "path": "./go",
-        "type": "path"
-      },
-      "parent": []
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -113,17 +36,6 @@
         "repo": "home-manager",
         "type": "github"
       }
-    },
-    "kubernetes": {
-      "locked": {
-        "path": "./kubernetes",
-        "type": "path"
-      },
-      "original": {
-        "path": "./kubernetes",
-        "type": "path"
-      },
-      "parent": []
     },
     "nix-darwin": {
       "inputs": {
@@ -180,109 +92,18 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1769018530,
-        "narHash": "sha256-MJ27Cy2NtBEV5tsK+YraYr2g851f3Fl1LpNHDzDX15c=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nodejs": {
-      "locked": {
-        "path": "./nodejs",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nodejs",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "nvim": {
-      "locked": {
-        "path": "./nvim",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nvim",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "opencode": {
-      "locked": {
-        "path": "./opencode",
-        "type": "path"
-      },
-      "original": {
-        "path": "./opencode",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "python": {
-      "locked": {
-        "path": "./python",
-        "type": "path"
-      },
-      "original": {
-        "path": "./python",
-        "type": "path"
-      },
-      "parent": []
-    },
     "root": {
       "inputs": {
-        "bun": "bun",
-        "cloud": "cloud",
-        "container": "container",
-        "core": "core",
-        "darwin": "darwin",
-        "dev": "dev",
-        "go": "go",
         "home-manager": "home-manager",
-        "kubernetes": "kubernetes",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
-        "nodejs": "nodejs",
-        "nvim": "nvim",
-        "opencode": "opencode",
-        "python": "python",
-        "rust": "rust",
-        "utility": "utility",
-        "wsl": "wsl",
-        "zsh": "zsh"
-      }
-    },
-    "rust": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "path": "./rust",
-        "type": "path"
-      },
-      "original": {
-        "path": "./rust",
-        "type": "path"
-      },
-      "parent": []
+      }
     },
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "rust",
           "nixpkgs"
         ]
       },
@@ -299,39 +120,6 @@
         "repo": "rust-overlay",
         "type": "github"
       }
-    },
-    "utility": {
-      "locked": {
-        "path": "./utility",
-        "type": "path"
-      },
-      "original": {
-        "path": "./utility",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "wsl": {
-      "locked": {
-        "path": "./wsl",
-        "type": "path"
-      },
-      "original": {
-        "path": "./wsl",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "zsh": {
-      "locked": {
-        "path": "./zsh",
-        "type": "path"
-      },
-      "original": {
-        "path": "./zsh",
-        "type": "path"
-      },
-      "parent": []
     }
   },
   "root": "root",
