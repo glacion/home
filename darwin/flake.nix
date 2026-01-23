@@ -14,6 +14,7 @@
             gnugrep
             gnutar
             colima
+            gnupg
           ];
         }
       );

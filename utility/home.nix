@@ -5,6 +5,7 @@
     doggo
     erdtree
     jq
+    mongodb-tools
     nmap
     pueue
     viddy

@@ -6,5 +6,6 @@
       gke-gcloud-auth-plugin
     ]))
     opentofu
+    cloudflared
   ];
 }
