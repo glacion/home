@@ -22,20 +22,22 @@
       overlays = [ (import rust-overlay) ];
       
       commonModules = [
-        ./bun
-        ./cloud
-        ./container
-        ./core
-        ./dev
-        ./go
-        ./kubernetes
-        ./nodejs
-        ./nvim
-        ./opencode
-        ./python
-        ./rust
-        ./utility
-        ./zsh
+        ./language/bun
+        ./language/go
+        ./language/nodejs
+        ./language/python
+        ./language/rust
+        
+        ./tool/cloud
+        ./tool/container
+        ./tool/dev
+        ./tool/kubernetes
+        ./tool/nvim
+        ./tool/opencode
+        ./tool/utility
+        ./tool/zsh
+
+        ./system/core
       ];
     in
     {
@@ -46,7 +48,7 @@
             inherit overlays;
             config.allowUnfree = true;
           };
-          modules = commonModules ++ [ ./wsl ];
+          modules = commonModules ++ [ ./system/wsl ];
         };
         "glacion@sentinel" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -54,14 +56,14 @@
             inherit overlays;
             config.allowUnfree = true;
           };
-          modules = commonModules ++ [ ./darwin ];
+          modules = commonModules ++ [ ./system/darwin ];
         };
       };
 
       darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
         modules = [
-          ./hosts/sentinel/configuration.nix
-          ./hosts/sentinel/homebrew.nix
+          ./host/sentinel/configuration.nix
+          ./host/sentinel/homebrew.nix
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -69,7 +71,7 @@
             home-manager = {
               backupFileExtension = "bak";
               users.glacion = {
-                imports = commonModules ++ [ ./darwin ];
+                imports = commonModules ++ [ ./system/darwin ];
               };
             };
           }
