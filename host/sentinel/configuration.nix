@@ -1,6 +1,7 @@
 { pkgs, self, ... }: {
   nix.enable = false;
   nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.config.allowUnfree = true;
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.systemPackages = [

@@ -21,24 +21,12 @@
     let
       overlays = [ (import rust-overlay) ];
       
-      commonModules = [
-        ./language/bun
-        ./language/go
-        ./language/nodejs
-        ./language/python
-        ./language/rust
-        
-        ./tool/cloud
-        ./tool/container
-        ./tool/dev
-        ./tool/kubernetes
-        ./tool/nvim
-        ./tool/opencode
-        ./tool/utility
-        ./tool/zsh
+        commonModules = [
+          ./language
+          ./tool
+          ./system/core
+        ];
 
-        ./system/core
-      ];
     in
     {
       homeConfigurations = {
@@ -69,6 +57,8 @@
           {
             nixpkgs.overlays = overlays;
             home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
               backupFileExtension = "bak";
               users.glacion = {
                 imports = commonModules ++ [ ./system/darwin ];

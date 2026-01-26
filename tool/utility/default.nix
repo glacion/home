@@ -7,6 +7,7 @@
     mongodb-tools
     nmap
     pueue
+    postgresql
     viddy
     yq
   ];
