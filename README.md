@@ -4,15 +4,17 @@ This repository contains the Nix-based system and home environment configuration
 
 ## Architecture
 
-The configuration is highly modular. Each top-level directory (e.g., `rust`, `go`, `nvim`, `zsh`) is treated as a component that provides specific packages or configurations. These are aggregated in the root `flake.nix`.
+The configuration is organized into modular categories. Language-specific configurations are grouped under `language/`, tools and utilities under `tool/`, and core system settings under `system/`. These are aggregated into unified modules for cleaner import in `flake.nix`.
 
 ### Structure
 - **`flake.nix`**: The entry point defining inputs, outputs, and system configurations.
-- **`hosts/`**: Host-specific configurations (e.g., `sentinel` for macOS).
-- **Modules**:
-    - **Languages**: `bun`, `go`, `nodejs`, `python`, `rust`
-    - **Tools**: `cloud`, `container`, `kubernetes`, `nvim`, `utility`
-    - **System**: `core`, `darwin`, `wsl`, `zsh`
+- **`host/`**: Host-specific configurations (e.g., `sentinel` for macOS).
+- **`language/`**: Language specific environments.
+    - `bun`, `go`, `nodejs`, `python`, `rust`
+- **`tool/`**: CLI tools and developer utilities.
+    - `cloud`, `container`, `dev`, `kubernetes`, `nvim`, `opencode`, `utility`, `zsh`
+- **`system/`**: Core system configurations.
+    - `core`, `darwin`, `wsl`
 
 ## Hosts
 
@@ -25,15 +27,16 @@ The configuration is highly modular. Each top-level directory (e.g., `rust`, `go
 
 ### Prerequisites
 - [Nix](https://nixos.org/download.html) installed with Flakes enabled.
+- [nh](https://github.com/viperML/nh) installed for nicer CLI experience.
 
 ### Applying Configuration
 
 **For macOS (`sentinel`):**
 ```bash
-darwin-rebuild switch --flake .#sentinel
+nh darwin switch
 ```
 
 **For Home Manager (`citadel` / generic):**
 ```bash
-home-manager switch --flake .#glacion@citadel
+nh home switch
 ```

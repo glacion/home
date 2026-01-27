@@ -1,11 +1,11 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    colima
     coreutils
     findutils
-    gnused
     gnugrep
-    gnutar
-    colima
     gnupg
+    gnused
+    gnutar
   ];
 }

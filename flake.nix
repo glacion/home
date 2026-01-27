@@ -1,5 +1,4 @@
 {
-  description = "Home Manager configuration for Citadel and Sentinel";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -12,46 +11,55 @@
       url = "github:nix-community/home-manager";
     };
     rust-overlay = {
-      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, nix-homebrew, rust-overlay, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      nix-homebrew,
+      rust-overlay,
+      ...
+    }:
     let
       overlays = [ (import rust-overlay) ];
-      
-        commonModules = [
-          ./language
-          ./tool
-          ./system/core
-        ];
+      commonModules = [
+        ./language
+        ./development
+        ./system/core
+      ];
 
     in
     {
       homeConfigurations = {
         "glacion@citadel" = home-manager.lib.homeManagerConfiguration {
+          modules = commonModules ++ [ ./system/wsl.nix ];
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             inherit overlays;
             config.allowUnfree = true;
           };
-          modules = commonModules ++ [ ./system/wsl ];
         };
         "glacion@sentinel" = home-manager.lib.homeManagerConfiguration {
+          modules = commonModules ++ [ ./system/darwin ];
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             inherit overlays;
             config.allowUnfree = true;
           };
-          modules = commonModules ++ [ ./system/darwin ];
         };
       };
 
       darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit self inputs; };
         modules = [
           ./host/sentinel/configuration.nix
-          ./host/sentinel/homebrew.nix
+          ./system/darwin/homebrew.nix
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -66,7 +74,6 @@
             };
           }
         ];
-        specialArgs = { inherit self inputs; };
       };
     };
 }

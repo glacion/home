@@ -1,9 +1,10 @@
 { ... }: {
   imports = [
-    ./bun
-    ./go
-    ./nodejs
-    ./python
-    ./rust
+    ./bun.nix
+    ./go.nix
+    ./nodejs.nix
+    ./python.nix
+    ./rust.nix
+    ./lua.nix
   ];
 }

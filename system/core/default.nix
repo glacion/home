@@ -1,6 +1,8 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./home.nix
-    ./program.nix
+    ./nix.nix
+    ./ssh.nix
   ];
 }
