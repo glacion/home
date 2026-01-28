@@ -24,6 +24,7 @@
   ];
 
   nix.enable = false;
+  nixpkgs.config.allowUnfree = true;
   programs.zsh.enable = true;
   nixpkgs = {
     hostPlatform = "aarch64-darwin";

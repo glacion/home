@@ -21,11 +21,21 @@ in
   };
 
   imports = [
-    ../core/nix.nix
     home-manager.nixosModules.home-manager
     nix-ld.nixosModules.nix-ld
     nixos-wsl.nixosModules.default
   ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.rust-overlay.overlays.default
+    ];
+  };
 
   home-manager = {
     useGlobalPkgs = true;
