@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-darwin/nix-darwin/master";
@@ -10,6 +9,9 @@
     nix-ld = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-ld";
+    };
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
     };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,24 +35,38 @@
     }:
     let
       overlays = [ (import rust-overlay) ];
-      commonModules = [
-        ./language
+      modules = [
         ./development
-        ./system/core
+        ./host/core
       ];
-
     in
     {
       homeConfigurations = {
         "glacion@citadel" = home-manager.lib.homeManagerConfiguration {
-          modules = commonModules;
+          modules = modules ++ [
+            {
+              home = {
+                username = "glacion";
+                homeDirectory = "/home/glacion";
+                stateVersion = "26.05";
+              };
+            }
+          ];
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             inherit overlays;
           };
         };
         "glacion@sentinel" = home-manager.lib.homeManagerConfiguration {
-          modules = commonModules ++ [ ./system/darwin ];
+          modules = modules ++ [
+            {
+              home = {
+                username = "glacion";
+                homeDirectory = "/Users/glacion";
+                stateVersion = "26.05";
+              };
+            }
+          ];
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
             inherit overlays;
@@ -59,30 +75,19 @@
       };
 
       nixosConfigurations.citadel = nixpkgs.lib.nixosSystem {
-        modules = [ ./host/citadel/configuration.nix ];
+        modules = [ ./host/linux ];
         specialArgs = { inherit self inputs; };
         system = "x86_64-linux";
       };
 
       darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit self inputs; };
         modules = [
-          ./host/sentinel/configuration.nix
-          ./system/darwin/homebrew.nix
+          ./host/darwin
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
-          {
-            nixpkgs.overlays = overlays;
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "bak";
-              users.glacion = {
-                imports = commonModules ++ [ ./system/darwin ];
-              };
-            };
-          }
         ];
+        specialArgs = { inherit self inputs; };
+        system = "aarch64-darwin";
       };
     };
 }

@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -10,28 +11,37 @@ let
 in
 {
   networking.hostName = "citadel";
-  nixpkgs.config.allowUnfree = true;
+
   virtualisation.docker.enable = true;
   system.stateVersion = "25.05";
 
   environment = {
-    variables.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
-    systemPackages = [
-      pkgs.nh
-      pkgs.wsl-open
-    ];
+    systemPackages = [ pkgs.wsl-open ];
+    variables.LD_LIBRARY_PATH = lib.mkDefault pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
   };
 
   imports = [
+    ../core/nix.nix
     home-manager.nixosModules.home-manager
     nix-ld.nixosModules.nix-ld
     nixos-wsl.nixosModules.default
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.glacion = {
+      home = {
+        username = "glacion";
+        homeDirectory = "/home/glacion";
+        stateVersion = "26.05";
+      };
+      imports = [
+        ../../development
+        ../core
+      ];
+    };
+  };
 
   programs = {
     nix-ld.dev.enable = true;

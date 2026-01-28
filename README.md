@@ -4,17 +4,15 @@ This repository contains the Nix-based system and home environment configuration
 
 ## Architecture
 
-The configuration is organized into modular categories. Language-specific configurations are grouped under `language/`, tools and utilities under `tool/`, and core system settings under `system/`. These are aggregated into unified modules for cleaner import in `flake.nix`.
+The configuration is organized into modular categories. Developer tools and languages are grouped under `development/`, and core system settings under `host/`. These are aggregated into unified modules for cleaner import in `flake.nix`.
 
 ### Structure
 - **`flake.nix`**: The entry point defining inputs, outputs, and system configurations.
-- **`host/`**: Host-specific configurations (e.g., `sentinel` for macOS).
-- **`language/`**: Language specific environments.
-    - `bun`, `go`, `nodejs`, `python`, `rust`
-- **`tool/`**: CLI tools and developer utilities.
+- **`host/`**: OS-specific configurations (`darwin`, `linux`) and core system modules (`core`).
+- **`development/`**: Developer tools and languages.
+    - `language/` (bun, go, nodejs, python, rust)
     - `cloud`, `container`, `dev`, `kubernetes`, `nvim`, `opencode`, `utility`, `zsh`
-- **`system/`**: Core system configurations.
-    - `core`, `darwin`, `wsl`
+
 
 ## Hosts
 

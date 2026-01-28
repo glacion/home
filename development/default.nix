@@ -11,5 +11,6 @@
     ./opencode.nix
     ./utility.nix
     ./zsh
+    ./language
   ];
 }

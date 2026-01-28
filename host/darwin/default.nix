@@ -1,19 +1,35 @@
-{ pkgs, self, ... }: {
-  nix.enable = false;
+{
+  inputs,
+  pkgs,
+  self,
+  ...
+}:
+{
+  imports = [
+    ./homebrew.nix
+  ];
+
   networking.hostName = "sentinel";
   time.timeZone = "Europe/Istanbul";
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  environment.systemPackages = [
-    pkgs.curl
-    pkgs.git
-    pkgs.home-manager
-    pkgs.nh
+  environment.systemPackages = with pkgs; [
+    colima
+    coreutils
+    findutils
+    gnugrep
+    gnupg
+    gnused
+    gnutar
   ];
 
+  nix.enable = false;
+  programs.zsh.enable = true;
   nixpkgs = {
-    config.allowUnfree = true;
     hostPlatform = "aarch64-darwin";
+    overlays = [
+      inputs.rust-overlay.overlays.default
+    ];
   };
 
   system = {
@@ -45,10 +61,29 @@
     };
   };
 
-  power.sleep.display = "never";
-
   users.users.glacion = {
     home = "/Users/glacion";
     name = "glacion";
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "bak";
+    users.glacion = {
+      home = {
+        username = "glacion";
+        homeDirectory = "/Users/glacion";
+        stateVersion = "26.05";
+      };
+      programs.nh = {
+        enable = true;
+        flake = "/Users/glacion/.config/home";
+      };
+      imports = [
+        ../../development
+        ../core
+      ];
+    };
   };
 }
