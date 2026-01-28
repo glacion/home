@@ -4,14 +4,14 @@ This repository contains the Nix-based system and home environment configuration
 
 ## Architecture
 
-The configuration is organized into modular categories. Developer tools and languages are grouped under `development/`, and core system settings under `host/`. These are aggregated into unified modules for cleaner import in `flake.nix`.
+The configuration is organized into modular categories. Developer tools and languages are grouped under `module/`, and core system settings under `host/`. Flake outputs are centralized under `part/` for simpler host and home wiring.
 
 ### Structure
 - **`flake.nix`**: The entry point defining inputs, outputs, and system configurations.
-- **`host/`**: OS-specific configurations (`darwin`, `linux`) and core system modules (`core`).
-- **`development/`**: Developer tools and languages.
-    - `language/` (bun, go, nodejs, python, rust)
-    - `cloud`, `container`, `dev`, `kubernetes`, `nvim`, `opencode`, `utility`, `zsh`
+- **`part/hosts.nix`**: Centralized host and home configuration wiring.
+- **`lib/default.nix`**: Helper constructors for NixOS, Darwin, and Home Manager.
+- **`host/`**: OS-specific configurations and system settings.
+- **`module/`**: Home Manager modules grouped by category.
 
 
 ## Hosts
