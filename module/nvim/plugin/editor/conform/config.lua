@@ -16,7 +16,8 @@ require("conform").setup({
 
 -- KEYMAP: n/v <leader><leader> - Format buffer
 vim.keymap.set("", "<leader><leader>", function()
-  if vim.bo.filetype == "NvimTree" then
+  local filetype = vim.bo.filetype
+  if filetype == "NvimTree" or filetype == "nvimtree" then
     return
   end
   require("conform").format({

@@ -27,7 +27,8 @@ vim.o.wrap = false
 -- Use LSP folding if available
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
-    if vim.bo[args.buf].filetype == "NvimTree" then
+    local filetype = vim.bo[args.buf].filetype
+    if filetype == "NvimTree" or filetype == "nvimtree" then
       return
     end
     local client = vim.lsp.get_client_by_id(args.data.client_id)

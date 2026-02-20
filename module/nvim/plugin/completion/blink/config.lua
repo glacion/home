@@ -39,7 +39,8 @@ require("blink.cmp").setup({
 -- LSP Keybindings provided in blink config
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
-    if vim.bo[event.buf].filetype == "NvimTree" then
+    local filetype = vim.bo[event.buf].filetype
+    if filetype == "NvimTree" or filetype == "nvimtree" then
       return
     end
     local opts = { buffer = event.buf }

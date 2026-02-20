@@ -1,34 +1,32 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
+      url = "github:hercules-ci/flake-parts";
     };
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-darwin/nix-darwin/master";
     };
 
     nix-ld = {
-      url = "github:nix-community/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nix-ld";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-
     home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
     };
 
     rust-overlay = {
-      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
     };
   };
 

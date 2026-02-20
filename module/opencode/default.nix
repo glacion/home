@@ -1,8 +1,33 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    ty
+    gopls
+    yaml-language-server
+    dockerfile-language-server
+    nodePackages.typescript-language-server
+    nodePackages.typescript
+  ];
+
   # OpenCode configuration
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";
+    model = "openai/gpt-5.3-codex";
+
+    lsp = {
+      basedpyright = {
+        disabled = true;
+      };
+      ty = {
+        command = [
+          "ty"
+          "server"
+        ];
+        extensions = [
+          "py"
+        ];
+      };
+    };
 
     plugin = [
       "oh-my-opencode"
