@@ -12,8 +12,15 @@
   system.stateVersion = "25.05";
 
   environment = {
-    systemPackages = [ pkgs.wsl-open ];
-    variables.LD_LIBRARY_PATH = lib.mkDefault pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
+    systemPackages = with pkgs; [
+      wsl-open
+      # Build essentials
+      gcc
+      gnumake
+      binutils
+      pkg-config
+    ];
+    variables.LD_LIBRARY_PATH = lib.mkDefault (pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ]);
   };
 
   nix.settings.experimental-features = [
