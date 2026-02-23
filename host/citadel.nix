@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   nixpkgsConfig,
   nixpkgsOverlays,
@@ -13,27 +12,26 @@
 
   environment = {
     systemPackages = with pkgs; [
+      unzip
       wsl-open
-      # Build essentials
-      gcc
-      gnumake
-      binutils
-      pkg-config
     ];
-    variables.LD_LIBRARY_PATH = lib.mkDefault (pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ]);
   };
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
+
   nixpkgs = {
     config = nixpkgsConfig;
     overlays = nixpkgsOverlays;
   };
 
   programs = {
-    nix-ld.dev.enable = true;
+    nix-ld.dev = {
+      enable = true;
+      libraries = with pkgs; [ icu openssl stdenv.cc.cc.lib ];
+    };
     zsh = {
       enable = true;
       shellAliases = {
