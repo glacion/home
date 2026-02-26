@@ -1,11 +1,13 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    buck2
     dockerfile-language-server
     gopls
     nodePackages.typescript
     nodePackages.typescript-language-server
     opencode
+    tombi
     ty
     yaml-language-server
   ];
@@ -16,6 +18,16 @@
     model = "openai/gpt-5.3-codex";
 
     lsp = {
+      buck2 = {
+        command = [
+          "buck2"
+          "lsp"
+        ];
+        extensions = [
+          "buck"
+          "bzl"
+        ];
+      };
       basedpyright = {
         disabled = true;
       };
@@ -26,6 +38,15 @@
         ];
         extensions = [
           "py"
+        ];
+      };
+      tombi = {
+        command = [
+          "tombi"
+          "lsp"
+        ];
+        extensions = [
+          "toml"
         ];
       };
     };
