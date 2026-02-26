@@ -11,6 +11,7 @@
     ./lua
     ./nix
     ./python
+    ./ruby
     ./rust
     ./shell
     ./terraform

@@ -13,6 +13,7 @@ require("conform").setup({
     lua = { "stylua" },
     markdown = { "biome" },
     nix = { "nixfmt" },
+    ruby = { "rubyfmt" },
     typescript = { "biome" },
   },
 })
