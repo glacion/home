@@ -1,7 +1,7 @@
 ---
 description: Nix flake, NixOS, nix-darwin, and Home Manager operator for this repository
 mode: primary
-model: openai/gpt-5.3-codex
+model: openai/gpt-5.4
 temperature: 0.1
 color: info
 permission:

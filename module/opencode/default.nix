@@ -4,8 +4,8 @@
     buck2
     dockerfile-language-server
     gopls
-    nodePackages.typescript
-    nodePackages.typescript-language-server
+    typescript
+    typescript-language-server
     opencode
     tombi
     ty
@@ -13,9 +13,10 @@
   ];
 
   # OpenCode configuration
+  xdg.configFile."opencode/opencode.json".force = true;
   xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
     "$schema" = "https://opencode.ai/config.json";
-    model = "openai/gpt-5.3-codex";
+    model = "openai/gpt-5.4";
 
     lsp = {
       buck2 = {
@@ -52,7 +53,7 @@
     };
 
     plugin = [
-      "oh-my-opencode"
+      "oh-my-openagent"
       "@tarquinen/opencode-dcp"
       "@mohak34/opencode-notifier"
     ];
