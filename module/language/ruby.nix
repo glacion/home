@@ -4,5 +4,6 @@
     ruby
     bundix
     rufo
+    rubyPackages.ruby-lsp
   ];
 }

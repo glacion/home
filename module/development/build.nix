@@ -4,5 +4,6 @@
     buck2
     buildifier
     just
+    terraform-ls
   ];
 }

@@ -4,5 +4,6 @@
     kubectl
     kubernetes-helm
     k9s
+    yaml-language-server
   ];
 }

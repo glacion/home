@@ -9,20 +9,44 @@ let
     rust-overlay
     ;
 
-  nixpkgsConfig.allowUnfree = true;
+  nixpkgsConfig = {
+    allowAliases = false;
+    allowUnfree = true;
+  };
   nixpkgsOverlays = [ rust-overlay.overlays.default ];
+
+  mkSpecialArgs = hostname: {
+    inherit
+      inputs
+      nixpkgsConfig
+      nixpkgsOverlays
+      ;
+    inherit hostname;
+  };
+
+  commonNixosModules = [
+    inputs.nix-ld.nixosModules.nix-ld
+    home-manager.nixosModules.home-manager
+    ./common/home.nix
+    ./common/nixos.nix
+  ];
+
+  mkNixosHost =
+    {
+      hostname,
+      system,
+      extraModules,
+    }:
+    nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = mkSpecialArgs hostname;
+      modules = commonNixosModules ++ extraModules;
+    };
 in
 {
   flake.darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
     system = "aarch64-darwin";
-    specialArgs = {
-      inherit
-        inputs
-        nixpkgsConfig
-        nixpkgsOverlays
-        ;
-      hostname = "sentinel";
-    };
+    specialArgs = mkSpecialArgs "sentinel";
     modules = [
       nix-homebrew.darwinModules.nix-homebrew
       home-manager.darwinModules.home-manager
@@ -31,60 +55,27 @@ in
     ];
   };
 
-  flake.nixosConfigurations.citadel = nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.citadel = mkNixosHost {
+    hostname = "citadel";
     system = "x86_64-linux";
-    specialArgs = {
-      inherit
-        inputs
-        nixpkgsConfig
-        nixpkgsOverlays
-        ;
-      hostname = "citadel";
-    };
-    modules = [
+    extraModules = [
       nixos-wsl.nixosModules.default
-      inputs.nix-ld.nixosModules.nix-ld
-      home-manager.nixosModules.home-manager
-      ./common/home.nix
-      ./common/nixos.nix
       ./citadel.nix
     ];
   };
 
-  flake.nixosConfigurations.reliquary = nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.reliquary = mkNixosHost {
+    hostname = "reliquary";
     system = "x86_64-linux";
-    specialArgs = {
-      inherit
-        inputs
-        nixpkgsConfig
-        nixpkgsOverlays
-        ;
-      hostname = "reliquary";
-    };
-    modules = [
-      inputs.nix-ld.nixosModules.nix-ld
-      home-manager.nixosModules.home-manager
-      ./common/home.nix
-      ./common/nixos.nix
+    extraModules = [
       ./reliquary.nix
     ];
   };
 
-  flake.nixosConfigurations.aegis = nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.aegis = mkNixosHost {
+    hostname = "aegis";
     system = "aarch64-linux";
-    specialArgs = {
-      inherit
-        inputs
-        nixpkgsConfig
-        nixpkgsOverlays
-        ;
-      hostname = "aegis";
-    };
-    modules = [
-      inputs.nix-ld.nixosModules.nix-ld
-      home-manager.nixosModules.home-manager
-      ./common/home.nix
-      ./common/nixos.nix
+    extraModules = [
       ./aegis.nix
     ];
   };

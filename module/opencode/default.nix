@@ -1,15 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    buck2
-    dockerfile-language-server
-    gopls
-    typescript
-    typescript-language-server
     opencode
-    tombi
-    ty
-    yaml-language-server
   ];
 
   # OpenCode configuration
@@ -99,7 +91,7 @@
         command = [
           "bunx"
           "mcp-server-filesystem"
-          "/Users/glacion/Source"
+          "${config.home.homeDirectory}/Source"
         ];
       };
 

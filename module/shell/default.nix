@@ -4,7 +4,10 @@
   ...
 }:
 {
-  home.packages = with pkgs; [ shfmt ];
+  home.packages = with pkgs; [
+    bash-language-server
+    shfmt
+  ];
 
   programs = {
     bat.enable = true;

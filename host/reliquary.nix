@@ -36,29 +36,6 @@
   services = {
     jellyfin.enable = true;
     openssh.enable = true;
-    nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-      virtualHosts = {
-        "jellyfin.glacion.com" = {
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:8096";
-            proxyWebsockets = true;
-          };
-        };
-        "torrent.glacion.com" = {
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:8080";
-            proxyWebsockets = true;
-          };
-        };
-      };
-    };
-    qbittorrent = {
-      enable = true;
-      webuiPort = 8080;
-      openFirewall = true;
-    };
     samba = {
       enable = true;
       openFirewall = true;

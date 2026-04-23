@@ -1,40 +1,61 @@
 # Nix Configuration
 
-This repository contains the Nix-based system and home environment configurations for my machines. It utilizes **Nix Flakes**, **Home Manager**, and **nix-darwin** to manage dependencies, dotfiles, and system settings declaratively.
+This repository contains declarative machine and user environment configuration built with **Nix Flakes**, **NixOS**, **nix-darwin**, and **Home Manager**.
 
 ## Architecture
 
-The configuration is organized into modular categories. Developer tools and languages are grouped under `module/`, and core system settings under `host/`. Flake outputs are centralized under `part/` for simpler host and home wiring.
+The flake entry point delegates host wiring to `host/`, while reusable Home Manager modules live under `module/`.
 
 ### Structure
-- **`flake.nix`**: The entry point defining inputs, outputs, and system configurations.
-- **`part/hosts.nix`**: Centralized host and home configuration wiring.
-- **`lib/default.nix`**: Helper constructors for NixOS, Darwin, and Home Manager.
-- **`host/`**: OS-specific configurations and system settings.
-- **`module/`**: Home Manager modules grouped by category.
-
+- **`flake.nix`**: flake inputs, supported systems, and the top-level `./host` import.
+- **`host/default.nix`**: central host wiring for Darwin and NixOS outputs.
+- **`host/common/`**: shared host modules:
+  - `home.nix` for the shared Home Manager user configuration
+  - `nixos.nix` for common NixOS settings
+- **`host/*.nix`**: host-specific system configuration.
+- **`module/`**: shared Home Manager modules grouped by concern:
+  - `core/`
+  - `shell/`
+  - `development/`
+  - `language/`
+  - `nvim/`
+  - `opencode/`
 
 ## Hosts
 
 | Hostname | User | System | Description |
 |----------|------|--------|-------------|
-| **sentinel** | `glacion` | `aarch64-darwin` | macOS environment managed via `nix-darwin` and `home-manager`. |
-| **citadel** | `glacion` | `x86_64-linux` | Linux environment (WSL) managed via `home-manager`. |
+| **sentinel** | `glacion` | `aarch64-darwin` | macOS system managed with `nix-darwin`, Home Manager, and `nix-homebrew`. |
+| **citadel** | `glacion` | `x86_64-linux` | NixOS on WSL managed with Home Manager and `nix-ld`. |
+| **reliquary** | `glacion` | `x86_64-linux` | NixOS host managed with shared NixOS and Home Manager modules. |
+| **aegis** | `glacion` | `aarch64-linux` | ARM NixOS host managed with shared NixOS and Home Manager modules. |
 
 ## Usage
 
 ### Prerequisites
-- [Nix](https://nixos.org/download.html) installed with Flakes enabled.
-- [nh](https://github.com/viperML/nh) installed for nicer CLI experience.
+- [Nix](https://nixos.org/download.html) with flakes enabled
+- [`nh`](https://github.com/viperML/nh)
 
-### Applying Configuration
+### Dry build before applying
 
-**For macOS (`sentinel`):**
+**NixOS (`citadel`, `reliquary`, `aegis`):**
 ```bash
-nh darwin switch
+nh os build
 ```
 
-**For Home Manager (`citadel` / generic):**
+**macOS (`sentinel`):**
 ```bash
-nh home switch
+nh darwin build
+```
+
+### Apply configuration
+
+**NixOS:**
+```bash
+nh os switch
+```
+
+**macOS:**
+```bash
+nh darwin switch
 ```

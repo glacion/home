@@ -3,6 +3,9 @@ require("trouble").setup({
     diagnostics = {
       auto_open = true,
       auto_close = true,
+      filter = {
+        buf = 0,
+      },
     },
   },
 })
