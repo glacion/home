@@ -31,6 +31,9 @@
   networking = {
     hostName = "reliquary";
     nameservers = [ "192.168.1.1" ];
+    firewall.allowedTCPPorts = [
+      8096
+    ];
   };
 
   services = {
