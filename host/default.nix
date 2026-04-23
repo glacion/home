@@ -1,110 +1,94 @@
 { inputs, ... }:
 let
   inherit (inputs)
-    nixpkgs
     home-manager
     nix-darwin
+    nix-homebrew
+    nixos-wsl
+    nixpkgs
     rust-overlay
     ;
+  inherit (nixpkgs) lib;
 
   nixpkgsConfig.allowUnfree = true;
   nixpkgsOverlays = [ rust-overlay.overlays.default ];
 
+  sharedHomeModules = [
+    ../module/core
+    ../module/development
+    ../module/language
+    ../module/shell
+    ../module/nvim
+    ../module/opencode
+  ];
+
   userConfig =
     { pkgs, ... }:
-    let
-      homeDir = if pkgs.stdenv.isDarwin then "/Users/glacion" else "/home/glacion";
-    in
     {
-      imports = [
-        ../module/core
-        ../module/development
-        ../module/language
-        ../module/shell
-        ../module/nvim
-        ../module/opencode
-      ];
+      imports = sharedHomeModules;
 
       home = {
         username = "glacion";
-        homeDirectory = homeDir;
+        homeDirectory = if pkgs.stdenv.isDarwin then "/Users/glacion" else "/home/glacion";
         stateVersion = "26.05";
       };
     };
+
+  mkHomeManagerModule = hostname: backupFileExtension: {
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      extraSpecialArgs = {
+        inherit inputs hostname;
+      };
+      users.glacion = userConfig;
+    }
+    // lib.optionalAttrs (backupFileExtension != null) {
+      inherit backupFileExtension;
+    };
+  };
+
+  mkHostArgs = hostname: {
+    inherit
+      inputs
+      nixpkgsConfig
+      nixpkgsOverlays
+      hostname
+      ;
+  };
 in
 {
   flake.darwinConfigurations.sentinel = nix-darwin.lib.darwinSystem {
     system = "aarch64-darwin";
-    specialArgs = {
-      inherit inputs nixpkgsConfig nixpkgsOverlays;
-      hostname = "sentinel";
-    };
+    specialArgs = mkHostArgs "sentinel";
     modules = [
-      inputs.nix-homebrew.darwinModules.nix-homebrew
+      nix-homebrew.darwinModules.nix-homebrew
       home-manager.darwinModules.home-manager
       ./sentinel.nix
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          backupFileExtension = "bak";
-          extraSpecialArgs = {
-            inherit inputs;
-            hostname = "sentinel";
-          };
-          users.glacion = userConfig;
-        };
-      }
+      (mkHomeManagerModule "sentinel" "bak")
     ];
   };
 
   flake.nixosConfigurations.citadel = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    specialArgs = {
-      inherit inputs nixpkgsConfig nixpkgsOverlays;
-      hostname = "citadel";
-    };
+    specialArgs = mkHostArgs "citadel";
     modules = [
-      inputs.nixos-wsl.nixosModules.default
+      nixos-wsl.nixosModules.default
       inputs.nix-ld.nixosModules.nix-ld
       home-manager.nixosModules.home-manager
       ./citadel.nix
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs;
-            hostname = "citadel";
-          };
-          users.glacion = userConfig;
-        };
-      }
+      (mkHomeManagerModule "citadel" null)
     ];
   };
 
-  flake.nixosConfigurations.lima = nixpkgs.lib.nixosSystem {
-    system = "aarch64-linux";
-    specialArgs = {
-      inherit inputs nixpkgsConfig nixpkgsOverlays;
-      hostname = "lima";
-    };
+  flake.nixosConfigurations.reliquary = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    specialArgs = mkHostArgs "reliquary";
     modules = [
-      inputs.nixos-lima.nixosModules.lima
       inputs.nix-ld.nixosModules.nix-ld
       home-manager.nixosModules.home-manager
-      ./lima.nix
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs;
-            hostname = "lima";
-          };
-          users.glacion = userConfig;
-        };
-      }
+      ./reliquary.nix
+      (mkHomeManagerModule "reliquary" null)
     ];
   };
 }

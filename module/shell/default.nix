@@ -4,6 +4,8 @@
   ...
 }:
 {
+  home.packages = with pkgs; [ shfmt ];
+
   programs = {
     bat.enable = true;
     bottom.enable = true;
