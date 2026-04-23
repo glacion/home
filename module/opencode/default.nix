@@ -78,17 +78,6 @@
         url = "https://mcp.context7.com/mcp";
       };
 
-      # Cloudflare API - manage Cloudflare resources via API token
-      cloudflare = {
-        enabled = true;
-        type = "remote";
-        url = "https://mcp.cloudflare.com/mcp";
-        oauth = false;
-        headers = {
-          Authorization = "Bearer {env:CLOUDFLARE_API_TOKEN}";
-        };
-      };
-
       # GitHub - repository access
       github = {
         enabled = true;

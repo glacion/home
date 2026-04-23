@@ -7,7 +7,6 @@ require("conform").setup({
     bxl = { "buildifier" },
     c = { "clang_format" },
     cpp = { "clang_format" },
-    cs = { "csharpier" },
     javascript = { "biome" },
     json = { "biome" },
     lua = { "stylua" },

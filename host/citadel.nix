@@ -1,39 +1,14 @@
-{
-  pkgs,
-  nixpkgsConfig,
-  nixpkgsOverlays,
-  ...
-}:
+{ pkgs, ... }:
 {
   networking.hostName = "citadel";
 
   virtualisation.docker.enable = true;
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 
-  environment = {
-    systemPackages = with pkgs; [
-      unzip
-      wsl-open
-    ];
-  };
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  nixpkgs = {
-    config = nixpkgsConfig;
-    overlays = nixpkgsOverlays;
-  };
+  environment.systemPackages = with pkgs; [ wsl-open ];
 
   programs = {
-    nix-ld.dev = {
-      enable = true;
-      libraries = with pkgs; [ icu openssl stdenv.cc.cc.lib ];
-    };
     zsh = {
-      enable = true;
       shellAliases = {
         open = "wsl-open";
       };
@@ -41,8 +16,6 @@
   };
 
   users.users.glacion = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
     extraGroups = [
       "docker"
       "wheel"
