@@ -82,4 +82,29 @@ in
       }
     ];
   };
+
+  flake.nixosConfigurations.lima = nixpkgs.lib.nixosSystem {
+    system = "aarch64-linux";
+    specialArgs = {
+      inherit inputs nixpkgsConfig nixpkgsOverlays;
+      hostname = "lima";
+    };
+    modules = [
+      inputs.nixos-lima.nixosModules.lima
+      inputs.nix-ld.nixosModules.nix-ld
+      home-manager.nixosModules.home-manager
+      ./lima.nix
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = {
+            inherit inputs;
+            hostname = "lima";
+          };
+          users.glacion = userConfig;
+        };
+      }
+    ];
+  };
 }

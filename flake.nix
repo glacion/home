@@ -24,6 +24,11 @@
       url = "github:nix-community/home-manager";
     };
 
+    nixos-lima = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nixos-lima/nixos-lima";
+    };
+
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:oxalica/rust-overlay";

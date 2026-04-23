@@ -68,6 +68,8 @@
     enable = true;
     casks = [
       "bentobox"
+      "caffeine"
+      "codex"
       "font-hasklug-nerd-font"
       "google-chrome"
       "notion"
@@ -77,6 +79,7 @@
       "telegram"
       "wezterm@nightly"
       "whatsapp"
+      "zoom"
     ];
     onActivation = {
       autoUpdate = true;

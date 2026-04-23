@@ -4,5 +4,6 @@
     mongodb-tools
     mongosh
     postgresql
+    redis
   ];
 }
