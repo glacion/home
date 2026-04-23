@@ -46,10 +46,9 @@
       };
 
       shellAliases = {
-        k = "kubecolor";
-        kubectl = "kubecolor";
-        kns = "kubecolor config set-context --current --namespace";
-        kctx = "kubecolor config use-context";
+        k = "kubectl";
+        kns = "kubectl config set-context --current --namespace";
+        kctx = "kubectl config use-context";
       };
 
       initContent = lib.mkMerge [
